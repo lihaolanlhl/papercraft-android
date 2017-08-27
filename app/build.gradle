@@ -4,6 +4,7 @@ apply plugin: 'com.android.application'
 buildscript {
     repositories {
         mavenCentral()
+        google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.0'
