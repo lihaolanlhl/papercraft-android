@@ -3,6 +3,10 @@ package com.licomm.papercraft.ui;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -178,42 +182,40 @@ public class ConfigActivity extends Activity implements
             return;
         }
 
-        if (v.getTag().toString().equals("ProxyUrl")){
-            showProxyUrlInputDialog();
-        } else if (v.getTag().toString().equals("AppSelect")){
+        if (v.getTag().toString().equals("AppSelect")){
             System.out.println("abc");
             startActivity(new Intent(this, AppManager.class));
         }
     }
 
-    private void showProxyUrlInputDialog() {
-        final EditText editText = new EditText(this);
-        editText.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
-        editText.setHint(getString(R.string.config_url_hint));
-        editText.setText(readProxyUrl());
-
-        new AlertDialog.Builder(this)
-                .setTitle(R.string.config_url)
-                .setView(editText)
-                .setPositiveButton(R.string.btn_ok, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (editText.getText() == null) {
-                            return;
-                        }
-
-                        String ProxyUrl = editText.getText().toString().trim();
-                        if (isValidUrl(ProxyUrl)) {
-                            setProxyUrl(ProxyUrl);
-                            //textViewProxyUrl.setText(ProxyUrl);
-                        } else {
-                            Toast.makeText(ConfigActivity.this, R.string.err_invalid_url, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                })
-                .setNegativeButton(R.string.btn_cancel, null)
-                .show();
-    }
+//    private void showProxyUrlInputDialog() {
+//        final EditText editText = new EditText(this);
+//        editText.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
+//        editText.setHint(getString(R.string.config_url_hint));
+//        editText.setText(readProxyUrl());
+//
+//        new AlertDialog.Builder(this)
+//                .setTitle(R.string.config_url)
+//                .setView(editText)
+//                .setPositiveButton(R.string.btn_ok, new OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if (editText.getText() == null) {
+//                            return;
+//                        }
+//
+//                        String ProxyUrl = editText.getText().toString().trim();
+//                        if (isValidUrl(ProxyUrl)) {
+//                            setProxyUrl(ProxyUrl);
+//                            //textViewProxyUrl.setText(ProxyUrl);
+//                        } else {
+//                            Toast.makeText(ConfigActivity.this, R.string.err_invalid_url, Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                })
+//                .setNegativeButton(R.string.btn_cancel, null)
+//                .show();
+//    }
 
     @SuppressLint("DefaultLocale")
     @Override
@@ -256,6 +258,7 @@ public class ConfigActivity extends Activity implements
                 }
             } else {
                 LocalVpnService.IsRunning = false;
+                closeNotification();
             }
         }
     }
@@ -286,7 +289,42 @@ public class ConfigActivity extends Activity implements
         GL_HISTORY_LOGS = null;
         onLogReceived("WHEN BAD MEETS EVIL>>>>>.....");
         LocalVpnService.ProxyUrl = ProxyUrl;
+
+        showNotification();
+
         startService(new Intent(this, LocalVpnService.class));
+    }
+
+    private void showNotification() {
+        //TODO: Add persist notification
+        Notification.Builder builder = new Notification.Builder(getApplicationContext())
+                .setContentTitle("Papercraft")
+                .setContentText("Papercraft is running")
+                .setSubText("Click to Enter")
+                .setNumber(101)
+                .setSmallIcon(android.R.color.transparent)
+                .setOngoing(true)
+                .setPriority(Notification.PRIORITY_DEFAULT);
+        Notification notification = builder.build();
+        NotificationManager notificationManger =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        Intent resultIntent = new Intent(this, ConfigActivity.class);
+        PendingIntent resultPendingIntent =
+                PendingIntent.getActivity(
+                        this,
+                        0,
+                        resultIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        builder.setContentIntent(resultPendingIntent);
+        notificationManger.notify(01, notification);
+    }
+
+    private void closeNotification() {
+        NotificationManager notificationManger =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManger.cancel(01);
     }
 
     @Override
