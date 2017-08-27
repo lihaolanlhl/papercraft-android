@@ -42,7 +42,7 @@ repositories {
 dependencies {
 //    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
+//    testCompile 'junit:junit:4.12'
 //    compile 'com.embarkmobile:zxing-android-minimal:2.0.0@aar'
 //    compile 'com.embarkmobile:zxing-android-integration:2.0.0@aar'
     compile 'org.bouncycastle:bcprov-jdk15on:1.57'
