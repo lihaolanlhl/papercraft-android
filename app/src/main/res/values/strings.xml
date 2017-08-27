@@ -19,4 +19,8 @@
     <string name="exit_confirm_info">This will close the tunnel connection, Are you sure to exit?</string>
     <string name="err_invalid_url">The config URL is invalid.</string>
     <string name="config_url_hint">ss://method:password@host:port</string>
+    <string name="label_host">Host:</string>
+    <string name="label_port">Port:</string>
+    <string name="label_password">Password:</string>
+    <string name="label_method">Method:</string>
 </resources>

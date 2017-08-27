@@ -30,6 +30,9 @@ android {
     }
     productFlavors {
     }
+    lintOptions {
+        disable 'MissingTranslation'
+    }
 }
 
 repositories {

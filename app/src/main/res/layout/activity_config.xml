@@ -21,7 +21,7 @@
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="HOST:"
+                android:text="@string/label_host"
                 android:textColor="#c2030c"/>
 
             <EditText
@@ -50,7 +50,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PORT:"
+                android:text="@string/label_port"
                 android:textColor="#c2030c"/>
 
             <EditText
@@ -81,7 +81,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PASSWORD:"
+                android:text="@string/label_password"
                 android:textColor="#c2030c"/>
 
             <EditText
@@ -113,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:text="METHOD:"
+                android:text="@string/label_method"
                 android:textColor="#c2030c"/>
 
             <Spinner

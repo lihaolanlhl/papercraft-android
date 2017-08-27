@@ -19,4 +19,8 @@
     <string name="exit_confirm_info">这将会关闭隧道，确定要退出吗？</string>
     <string name="err_invalid_url">无效的配置地址</string>
     <string name="config_url_hint">ss://method:password@host:port</string>
+    <string name="label_host">主机:</string>
+    <string name="label_port">端口:</string>
+    <string name="label_password">密码:</string>
+    <string name="label_method">加密方法:</string>
 </resources>
