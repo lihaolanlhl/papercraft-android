@@ -61,7 +61,9 @@
                 android:layout_weight="1"
                 android:textColor="#c2030c"
                 android:background="@android:color/transparent"
-                android:ems="10">
+                android:ems="10"
+                android:inputType="number"
+                android:maxLength="5">
 
             </EditText>
         </LinearLayout>
