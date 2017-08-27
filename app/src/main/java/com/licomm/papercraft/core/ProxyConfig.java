@@ -374,11 +374,6 @@ public class ProxyConfig {
         Config config = null;
         if (proxyString.startsWith("ss://")) {
             config = ShadowsocksConfig.parse(proxyString);
-        } else {
-            if (!proxyString.toLowerCase().startsWith("http://")) {
-                proxyString = "http://" + proxyString;
-            }
-            config = HttpConnectConfig.parse(proxyString);
         }
         if (!m_ProxyList.contains(config)) {
             m_ProxyList.add(config);

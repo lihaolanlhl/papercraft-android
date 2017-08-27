@@ -37,9 +37,6 @@ repositories {
 //    maven {
 //        url "https://raw.github.com/embarkmobile/zxing-android-minimal/mvn-repo/maven-repository/"
 //    }
-    maven {
-        url "https://maven.google.com"
-    }
 }
 
 dependencies {
@@ -48,10 +45,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
 //    compile 'com.embarkmobile:zxing-android-minimal:2.0.0@aar'
 //    compile 'com.embarkmobile:zxing-android-integration:2.0.0@aar'
-    compile 'org.bouncycastle:bcprov-jdk15on:1.52'
+    compile 'org.bouncycastle:bcprov-jdk15on:1.57'
     compile 'com.futuremind.recyclerfastscroll:fastscroll:0.2.5'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'com.android.support:design:26.0.1'
 
 //    compile('com.googlecode.json-simple:json-simple:1.1.1') {
 //        exclude group: 'junit', module: 'junit'
