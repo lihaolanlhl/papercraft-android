@@ -14,16 +14,16 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 
-public class RC4MD5Crypt extends CryptBase {
+public class Rc4Md5Crypt extends CryptBase {
     public static String CIPHER_RC4_MD5 = "rc4-md5";
 
     public static Map<String, String> getCiphers() {
         Map<String, String> ciphers = new HashMap<String, String>();
-        ciphers.put(CIPHER_RC4_MD5, RC4MD5Crypt.class.getName());
+        ciphers.put(CIPHER_RC4_MD5, Rc4Md5Crypt.class.getName());
         return ciphers;
     }
 
-    public RC4MD5Crypt(String name, String password) {
+    public Rc4Md5Crypt(String name, String password) {
         super(name, password);
     }
 
