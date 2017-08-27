@@ -247,8 +247,7 @@ public class ProxyConfig {
             HttpResponse response = client.execute(requestGet);
 
             String configString = EntityUtils.toString(response.getEntity(), "UTF-8");
-            String[] lines = configString.split("\\n");
-            return lines;
+            return configString.split("\\n");
         } catch (Exception e) {
             throw new Exception(String.format("Download config file from %s failed.", url));
         }
@@ -401,11 +400,7 @@ public class ProxyConfig {
         if (valueString == null || valueString.isEmpty())
             return false;
         valueString = valueString.toLowerCase(Locale.ENGLISH).trim();
-        if (valueString.equals("on") || valueString.equals("1") || valueString.equals("true") || valueString.equals("yes")) {
-            return true;
-        } else {
-            return false;
-        }
+        return valueString.equals("on") || valueString.equals("1") || valueString.equals("true") || valueString.equals("yes");
     }
 
 

@@ -164,9 +164,7 @@ public abstract class Tunnel {
     }
 
     void disposeInternal(boolean disposeBrother) {
-        if (m_Disposed) {
-            return;
-        } else {
+        if (!m_Disposed) {
             try {
                 m_InnerChannel.close();
             } catch (Exception e) {

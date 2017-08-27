@@ -104,8 +104,7 @@ public class DnsProxy implements Runnable {
         for (int i = 0; i < dnsPacket.Header.ResourceCount; i++) {
             Resource resource = dnsPacket.Resources[i];
             if (resource.Type == 1) {
-                int ip = CommonMethods.readInt(resource.Data, 0);
-                return ip;
+                return CommonMethods.readInt(resource.Data, 0);
             }
         }
         return 0;

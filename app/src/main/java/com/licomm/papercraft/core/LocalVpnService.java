@@ -84,9 +84,9 @@ public class LocalVpnService extends VpnService implements Runnable {
     }
 
     public interface onStatusChangedListener {
-        public void onStatusChanged(String status, Boolean isRunning);
+        void onStatusChanged(String status, Boolean isRunning);
 
-        public void onLogReceived(String logString);
+        void onLogReceived(String logString);
     }
 
     public static void addOnStatusChangedListener(onStatusChangedListener listener) {
@@ -150,8 +150,7 @@ public class LocalVpnService extends VpnService implements Runnable {
             PackageManager packageManager = getPackageManager();
             // getPackageName()是你当前类的包名，0代表是获取版本信息
             PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(), 0);
-            String version = packInfo.versionName;
-            return version;
+            return packInfo.versionName;
         } catch (Exception e) {
             return "0.0";
         }
@@ -196,13 +195,12 @@ public class LocalVpnService extends VpnService implements Runnable {
                 if (IsRunning) {
                     //加载配置文件
 
-                    writeLog("set shadowsocks/(http proxy)");
+                    writeLog("set shadowsocks");
                     try {
                         ProxyConfig.Instance.m_ProxyList.clear();
                         ProxyConfig.Instance.addProxyToList(ProxyUrl);
                         writeLog("Proxy is: %s", ProxyConfig.Instance.getDefaultProxy());
                     } catch (Exception e) {
-                        ;
                         String errString = e.getMessage();
                         if (errString == null || errString.isEmpty()) {
                             errString = e.toString();
@@ -223,7 +221,7 @@ public class LocalVpnService extends VpnService implements Runnable {
                 }
             }
         } catch (InterruptedException e) {
-            System.out.println(e);
+            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
             writeLog("Fatal error: %s", e.toString());
