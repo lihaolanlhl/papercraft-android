@@ -4,7 +4,6 @@ apply plugin: 'com.android.application'
 buildscript {
     repositories {
         mavenCentral()
-        google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.0'
@@ -41,7 +40,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+//    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
 //    compile 'com.embarkmobile:zxing-android-minimal:2.0.0@aar'
