@@ -301,8 +301,7 @@ public class ConfigActivity extends Activity implements
                 .setContentTitle("Papercraft")
                 .setContentText("Papercraft is running")
                 .setSubText("Click to Enter")
-                .setNumber(101)
-                .setSmallIcon(android.R.color.transparent)
+                .setSmallIcon(R.drawable.vpn_lock)
                 .setOngoing(true)
                 .setPriority(Notification.PRIORITY_DEFAULT);
         Notification notification = builder.build();
