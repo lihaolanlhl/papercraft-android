@@ -33,6 +33,7 @@ package com.licomm.papercraft.tunnel.shadowsocks;
 
 import org.bouncycastle.crypto.StreamBlockCipher;
 import org.bouncycastle.crypto.engines.SEEDEngine;
+import org.bouncycastle.crypto.StreamCipher;
 import org.bouncycastle.crypto.modes.CFBBlockCipher;
 
 import java.io.ByteArrayOutputStream;
@@ -67,7 +68,7 @@ public class SeedCrypt extends CryptBase {
     }
 
     @Override
-    protected StreamBlockCipher getCipher(boolean isEncrypted) throws InvalidAlgorithmParameterException {
+    protected StreamCipher getCipher(boolean isEncrypted) throws InvalidAlgorithmParameterException {
         SEEDEngine engine = new SEEDEngine();
         StreamBlockCipher cipher;
 

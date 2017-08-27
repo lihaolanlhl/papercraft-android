@@ -12,7 +12,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +21,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +39,7 @@ public class ConfigActivity extends Activity implements
         OnCheckedChangeListener,
         LocalVpnService.onStatusChangedListener {
 
+
     private static String GL_HISTORY_LOGS;
 
     private static final String TAG = ConfigActivity.class.getSimpleName();
@@ -50,8 +51,19 @@ public class ConfigActivity extends Activity implements
     private Switch switchProxy;
     private TextView textViewLog;
     private ScrollView scrollViewLog;
-    private TextView textViewProxyUrl, textViewProxyApp;
+    private TextView textViewProxyApp;
     private Calendar mCalendar;
+    private Spinner mSpinner;
+
+    private SharedPreferences spf;
+    private static final String PREF_NAME = "config";
+    private static final String SERVER_NAME = "server_name";
+    private static final String REMOTE_PORT = "remote_port";
+    private static final String PASSWORD = "password";
+    private static final String ENCRYPT_METHOD = "encrypt_method";
+    private EditText mEditServer = null;
+    private EditText mEditPort = null;
+    private EditText mEditPassword = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,16 +72,19 @@ public class ConfigActivity extends Activity implements
 
         scrollViewLog = findViewById(R.id.scrollViewLog);
         textViewLog = findViewById(R.id.textViewLog);
-        findViewById(R.id.ProxyUrlLayout).setOnClickListener(this);
+        //findViewById(R.id.ProxyUrlLayout).setOnClickListener(this);
         findViewById(R.id.AppSelectLayout).setOnClickListener(this);
-
-        textViewProxyUrl = findViewById(R.id.textViewProxyUrl);
-        String ProxyUrl = readProxyUrl();
-        if (TextUtils.isEmpty(ProxyUrl)) {
-            textViewProxyUrl.setText(R.string.config_not_set_value);
-        } else {
-            textViewProxyUrl.setText(ProxyUrl);
-        }
+        mSpinner = findViewById(R.id.spinner1);
+        mEditServer = findViewById(R.id.editText1);
+        mEditPort = findViewById(R.id.editText2);
+        mEditPassword = findViewById(R.id.editText3);
+        //textViewProxyUrl = findViewById(R.id.textViewProxyUrl);
+        // String ProxyUrl = readProxyUrl();
+        // if (TextUtils.isEmpty(ProxyUrl)) {
+        //  textViewProxyUrl.setText(R.string.config_not_set_value);
+        //} else {
+        // textViewProxyUrl.setText(ProxyUrl);
+        //   }
 
         textViewLog.setText(GL_HISTORY_LOGS);
         scrollViewLog.fullScroll(ScrollView.FOCUS_DOWN);
@@ -77,13 +92,37 @@ public class ConfigActivity extends Activity implements
         mCalendar = Calendar.getInstance();
         LocalVpnService.addOnStatusChangedListener(this);
 
+
         //Pre-App Proxy
-        if (AppProxyManager.isLollipopOrAbove){
+        if (AppProxyManager.isLollipopOrAbove) {
             new AppProxyManager(this);
             textViewProxyApp = findViewById(R.id.textViewAppSelectDetail);
         } else {
             ((ViewGroup) findViewById(R.id.AppSelectLayout).getParent()).removeView(findViewById(R.id.AppSelectLayout));
-            findViewById(R.id.textViewAppSelectLine).setVisibility(View.GONE);
+           // findViewById(R.id.textViewAppSelectLine).setVisibility(View.GONE);
+        }
+    }
+
+    void initConfig() {
+        spf = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        String name = spf.getString(SERVER_NAME, "");
+        String port = spf.getString(REMOTE_PORT, "");
+        String password = spf.getString(PASSWORD, "");
+        String[] methods = getResources().getStringArray(R.array.encrypt);
+        int methodId = spf.getInt(ENCRYPT_METHOD, 0);
+
+        if (!name.isEmpty()) {
+            mEditServer.setText(name);
+        }
+        if (!port.isEmpty()) {
+            mEditPort.setText(port);
+        }
+        if (!password.isEmpty()) {
+            mEditPassword.setText(password);
+        }
+        if (methodId > -1) {
+            mSpinner.setSelection(methodId);
+
         }
     }
 
@@ -116,12 +155,23 @@ public class ConfigActivity extends Activity implements
 
     boolean isValidUrl(String url) {
         try {
-            return !(url == null || url.isEmpty()) && url.startsWith("ss://");
+            if (url == null || url.isEmpty())
+                return false;
+
+            if (url.startsWith("ss://")) {//file path
+                return true;
+            } else { //url
+                Uri uri = Uri.parse(url);
+                if (!"http".equals(uri.getScheme()) && !"https".equals(uri.getScheme()))
+                    return false;
+                if (uri.getHost() == null)
+                    return false;
+            }
+            return true;
         } catch (Exception e) {
             return false;
         }
     }
-
     @Override
     public void onClick(View v) {
         if (switchProxy.isChecked()) {
@@ -155,7 +205,7 @@ public class ConfigActivity extends Activity implements
                         String ProxyUrl = editText.getText().toString().trim();
                         if (isValidUrl(ProxyUrl)) {
                             setProxyUrl(ProxyUrl);
-                            textViewProxyUrl.setText(ProxyUrl);
+                            //textViewProxyUrl.setText(ProxyUrl);
                         } else {
                             Toast.makeText(ConfigActivity.this, R.string.err_invalid_url, Toast.LENGTH_SHORT).show();
                         }
@@ -211,7 +261,12 @@ public class ConfigActivity extends Activity implements
     }
 
     private void startVPNService() {
-        String ProxyUrl = readProxyUrl();
+        //String ProxyUrl = readProxyUrl();
+        String ProxyUrl = "ss://";
+        String[] methods = getResources().getStringArray(R.array.encrypt);
+        ProxyUrl += methods[mSpinner.getSelectedItemPosition()];
+        ProxyUrl += ":" + mEditPassword.getText().toString();
+        ProxyUrl += "@" + mEditServer.getText().toString() + ":" + mEditPort.getText().toString();
         if (!isValidUrl(ProxyUrl)) {
             Toast.makeText(this, R.string.err_invalid_url, Toast.LENGTH_SHORT).show();
             switchProxy.post(new Runnable() {
@@ -223,10 +278,13 @@ public class ConfigActivity extends Activity implements
             });
             return;
         }
-
+        spf.edit().putString(SERVER_NAME, mEditServer.getText().toString()).apply();
+        spf.edit().putString(REMOTE_PORT, mEditPort.getText().toString()).apply();
+        spf.edit().putString(PASSWORD, mEditPassword.getText().toString()).apply();
+        spf.edit().putInt(ENCRYPT_METHOD, mSpinner.getSelectedItemPosition()).apply();
         textViewLog.setText("");
         GL_HISTORY_LOGS = null;
-        onLogReceived("starting...");
+        onLogReceived("WHEN BAD MEETS EVIL>>>>>.....");
         LocalVpnService.ProxyUrl = ProxyUrl;
         startService(new Intent(this, LocalVpnService.class));
     }
@@ -290,7 +348,7 @@ public class ConfigActivity extends Activity implements
                         .setNegativeButton(R.string.btn_more, new OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/dawei101/shadowsocks-android-java")));
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/smoochiee")));
                             }
                         })
                         .show();
@@ -334,6 +392,7 @@ public class ConfigActivity extends Activity implements
     @Override
     protected void onResume() {
         super.onResume();
+        initConfig();
         if (AppProxyManager.isLollipopOrAbove) {
             if (AppProxyManager.Instance.proxyAppInfo.size() != 0) {
                 String tmpString = "";

@@ -32,6 +32,7 @@
 package com.licomm.papercraft.tunnel.shadowsocks;
 
 import org.bouncycastle.crypto.StreamBlockCipher;
+import org.bouncycastle.crypto.StreamCipher;
 import org.bouncycastle.crypto.engines.CamelliaEngine;
 import org.bouncycastle.crypto.modes.CFBBlockCipher;
 
@@ -79,7 +80,7 @@ public class CamelliaCrypt extends CryptBase {
     }
 
     @Override
-    protected StreamBlockCipher getCipher(boolean isEncrypted) throws InvalidAlgorithmParameterException {
+    protected StreamCipher getCipher(boolean isEncrypted) throws InvalidAlgorithmParameterException {
         CamelliaEngine engine = new CamelliaEngine();
         StreamBlockCipher cipher;
 
