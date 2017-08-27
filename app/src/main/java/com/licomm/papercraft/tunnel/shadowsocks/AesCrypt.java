@@ -33,7 +33,7 @@ package com.licomm.papercraft.tunnel.shadowsocks;
 
 import org.bouncycastle.crypto.StreamBlockCipher;
 import org.bouncycastle.crypto.StreamCipher;
-import org.bouncycastle.crypto.engines.AESFastEngine;
+import org.bouncycastle.crypto.engines.AESLightEngine;
 import org.bouncycastle.crypto.modes.CFBBlockCipher;
 import org.bouncycastle.crypto.modes.OFBBlockCipher;
 
@@ -88,7 +88,7 @@ public class AesCrypt extends CryptBase {
 
     @Override
     protected StreamCipher getCipher(boolean isEncrypted) throws InvalidAlgorithmParameterException {
-        AESFastEngine engine = new AESFastEngine();
+        AESLightEngine engine = new AESLightEngine();
         StreamBlockCipher cipher;
 
         if (_name.equals(CIPHER_AES_128_CFB)) {
