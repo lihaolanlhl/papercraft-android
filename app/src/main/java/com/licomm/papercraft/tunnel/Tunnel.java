@@ -1,6 +1,6 @@
 package com.licomm.papercraft.tunnel;
 
-import android.annotation.SuppressLint;
+//import android.annotation.SuppressLint;
 
 import com.licomm.papercraft.core.LocalVpnService;
 import com.licomm.papercraft.core.ProxyConfig;
@@ -103,7 +103,7 @@ public abstract class Tunnel {
         m_BrotherTunnel.beginReceive();//兄弟也开始收数据吧
     }
 
-    @SuppressLint("DefaultLocale")
+//    @SuppressLint("DefaultLocale")
     public void onConnectable() {
         try {
             if (m_InnerChannel.finishConnect()) {//连接成功

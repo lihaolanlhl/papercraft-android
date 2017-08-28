@@ -56,10 +56,10 @@ public class AppManager extends Activity{
             actionBar.setDisplayHomeAsUpEnabled(true);
 
         loadingView = findViewById(R.id.loading);
-        appListView = (RecyclerView)findViewById(R.id.list);
+        appListView = findViewById(R.id.list);
         appListView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         appListView.setItemAnimator(new DefaultItemAnimator());
-        fastScroller = (FastScroller)findViewById(R.id.fastscroller);
+        fastScroller = findViewById(R.id.fastscroller);
 
         Observable<List<AppInfo>> observable = Observable.create(new ObservableOnSubscribe<List<AppInfo>>() {
             @Override

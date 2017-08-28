@@ -1,6 +1,6 @@
 package com.licomm.papercraft.core;
 
-import android.annotation.SuppressLint;
+//import android.annotation.SuppressLint;
 import android.os.Build;
 
 import com.licomm.papercraft.tcpip.CommonMethods;
@@ -73,7 +73,7 @@ public class ProxyConfig {
             this.PrefixLength = prefixLength;
         }
 
-        @SuppressLint("DefaultLocale")
+//        @SuppressLint("DefaultLocale")
         @Override
         public String toString() {
             return String.format("%s/%d", Address, PrefixLength);

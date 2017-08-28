@@ -1,6 +1,6 @@
 package com.licomm.papercraft.ui;
 
-import android.annotation.SuppressLint;
+//import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
@@ -217,7 +217,7 @@ public class ConfigActivity extends Activity implements
 //                .show();
 //    }
 
-    @SuppressLint("DefaultLocale")
+//    @SuppressLint("DefaultLocale")
     @Override
     public void onLogReceived(String logString) {
         mCalendar.setTimeInMillis(System.currentTimeMillis());
