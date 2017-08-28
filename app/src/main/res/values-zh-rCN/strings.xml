@@ -23,4 +23,6 @@
     <string name="label_port">端口:</string>
     <string name="label_password">密码:</string>
     <string name="label_method">加密方法:</string>
+    <string name="notification_running">纸飞机正在运行</string>
+    <string name="notification_click_enter">点击进入</string>
 </resources>

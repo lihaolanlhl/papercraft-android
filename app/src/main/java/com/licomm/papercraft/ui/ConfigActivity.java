@@ -308,9 +308,9 @@ public class ConfigActivity extends Activity implements
     private void showNotification() {
         //TODO: Add persist notification
         Notification.Builder builder = new Notification.Builder(getApplicationContext())
-                .setContentTitle("Papercraft")
-                .setContentText("Papercraft is running")
-                .setSubText("Click to Enter")
+                .setContentTitle(getString(R.string.app_name))
+                .setContentText(getString(R.string.notification_running))
+                .setSubText(getString(R.string.notification_click_enter))
                 .setSmallIcon(R.drawable.vpn_lock)
                 .setOngoing(true)
                 .setPriority(Notification.PRIORITY_DEFAULT);

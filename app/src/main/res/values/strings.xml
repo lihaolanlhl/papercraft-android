@@ -23,4 +23,6 @@
     <string name="label_port">Port:</string>
     <string name="label_password">Password:</string>
     <string name="label_method">Method:</string>
+    <string name="notification_running">Papercraft is running</string>
+    <string name="notification_click_enter">Click to Enter</string>
 </resources>
