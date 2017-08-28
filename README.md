@@ -2,8 +2,36 @@
 
 Last release: Still debugging
 
-# Instructions from dawei101
+Travis CI: [![Build Status](https://travis-ci.org/lihaolanlhl/shadowsocks-android-java.svg?branch=master)](https://travis-ci.org/lihaolanlhl/shadowsocks-android-java)
 
+## What we have supported additionally:
+```
+rc4-md5
+chacha20
+bf-cfb
+seed-cfb
+aes-128-cfb
+aes-192-cfb
+aes-256-cfb
+aes-128-ofb
+aes-192-ofb
+aes-256-ofb
+camellia-128-cfb
+camellia-192-cfb
+camellia-256-cfb
+```
+## What we plan to support
+```
+chacha20-ietf-poly1305
+```
+## What network speed can we achieve
+The fastest speed we can achieve using aes-256-cfb is about 50MBit/s.
+
+## What benefits we have
+Lightweight, powersave, less cpu
+
+## Instructions from dawei101
+```
 ### 关于 About
 
 本版本为shadowsocks android版的纯java版本
@@ -26,10 +54,8 @@ shadowsocks设置格式：
 
 shadowsocks settings format
 
-```
 ss://method:password@host:port
 ss://base64encode(method:password@host:port)
-```
 
 其中代码保留了SmartProxy对http(s)代理的支持, 使用时将配置链接填写标准http(s)代理格式即可.
 
@@ -38,15 +64,12 @@ And also it inherited the support of http(s) proxy from Smartproxy , Set the url
 http(s)代理格式
 
 http(s)proxy foramt:
-```
 http(s)://(username:passsword)@host:port
-```
 
 支持的加密类型：
 
 Support methods of encryption:
 
-```
 bf-cfb
 seed-cfb
 aes-128-cfb
@@ -58,7 +81,6 @@ aes-256-ofb
 camellia-128-cfb
 camellia-192-cfb
 camellia-256-cfb
-```
 
 ### 兄弟版本 Brother version
 
@@ -70,12 +92,13 @@ Scala version is high threshold to lots of developer, so it's a better choice to
 
 [shadowsocks 桌面版，一份代码完美支持windows，mac osx，linux](https://github.com/dawei101/tongsheClient.shadowsocks-go)
 
+```
 #### LICENSE
 
 [Apache License](./LICENSE)
 
 # More Instructions
 
-# This project is in ACTIVE development, so bugs expected.
-# Note: This app is renamed to Papercraft, with codes forked from dawei.
+This project is in *ACTIVE* development, so bugs expected.
+Note: This app is renamed to Papercraft, with codes forked from dawei.
 
