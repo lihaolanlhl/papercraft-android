@@ -2,6 +2,7 @@ package com.licomm.papercraft.tunnel.shadowsocks;
 
 import org.bouncycastle.crypto.StreamCipher;
 import org.bouncycastle.crypto.engines.ChaChaEngine;
+import org.bouncycastle.crypto.engines.ChaCha7539Engine;
 
 import java.io.ByteArrayOutputStream;
 import java.security.InvalidAlgorithmParameterException;
@@ -13,10 +14,12 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class Chacha20Crypt extends CryptBase {
 	public final static String CIPHER_CHACHA20 = "chacha20";
+	public final static String CIPHER_CHACHA20_IETF = "chacha20-ietf";
 
 	public static Map<String, String> getCiphers() {
 		Map<String, String> ciphers = new HashMap<>();
 		ciphers.put(CIPHER_CHACHA20, Chacha20Crypt.class.getName());
+		ciphers.put(CIPHER_CHACHA20_IETF, Chacha20Crypt.class.getName());
 		return ciphers;
 	}
 
@@ -26,7 +29,13 @@ public class Chacha20Crypt extends CryptBase {
 
 	@Override
 	protected StreamCipher getCipher(boolean isEncrypted) throws InvalidAlgorithmParameterException {
-		return new ChaChaEngine();
+		if (_name.equals(CIPHER_CHACHA20)) {
+			return new ChaChaEngine();
+		}
+		else if (_name.equals(CIPHER_CHACHA20_IETF)) {
+			return new ChaCha7539Engine();
+		}
+		return null;
 	}
 
 	@Override
@@ -55,7 +64,7 @@ public class Chacha20Crypt extends CryptBase {
 
 	@Override
 	public int getKeyLength() {
-		if (_name.equals(CIPHER_CHACHA20)) {
+		if (_name.equals(CIPHER_CHACHA20) || _name.equals(CIPHER_CHACHA20_IETF)) {
 			return 32;
 		}
 		return 0;
@@ -63,8 +72,12 @@ public class Chacha20Crypt extends CryptBase {
 
 	@Override
 	public int getIVLength() {
-		return 8;
-
-
+		if (_name.equals(CIPHER_CHACHA20)) {
+			return 8;
+		}
+		else if (_name.equals(CIPHER_CHACHA20_IETF)) {
+			return 12;
+		}
+		return 0;
 	}
 }

@@ -8,6 +8,7 @@ Travis CI: [![Build Status](https://travis-ci.org/lihaolanlhl/shadowsocks-androi
 ```
 rc4-md5
 chacha20
+chacha20-ietf
 bf-cfb
 seed-cfb
 aes-128-cfb
@@ -25,7 +26,8 @@ camellia-256-cfb
 chacha20-ietf-poly1305
 ```
 ## What network speed can we achieve
-The fastest speed we can achieve using aes-256-cfb is about 50MBit/s.
+The highest speed we can achieve using aes-256-cfb is about 50MBit/s.
+While on Chacha20-ietf, the highest speed we can achieve is about 80MBit/s.
 
 ## What benefits we have
 Lightweight, powersave, less cpu
