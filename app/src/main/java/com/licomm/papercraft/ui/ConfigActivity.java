@@ -105,6 +105,13 @@ public class ConfigActivity extends Activity implements
             ((ViewGroup) findViewById(R.id.AppSelectLayout).getParent()).removeView(findViewById(R.id.AppSelectLayout));
            // findViewById(R.id.textViewAppSelectLine).setVisibility(View.GONE);
         }
+
+        if (LocalVpnService.IsRunning) {
+            disableEditText();
+        }
+        else {
+            enableEditText();
+        }
     }
 
     void initConfig() {
@@ -258,6 +265,7 @@ public class ConfigActivity extends Activity implements
                 }
             } else {
                 LocalVpnService.IsRunning = false;
+                enableEditText();
                 closeNotification();
             }
         }
@@ -292,6 +300,8 @@ public class ConfigActivity extends Activity implements
 
         showNotification();
 
+        disableEditText();
+
         startService(new Intent(this, LocalVpnService.class));
     }
 
@@ -324,6 +334,20 @@ public class ConfigActivity extends Activity implements
         NotificationManager notificationManger =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManger.cancel(01);
+    }
+
+    private void disableEditText() {
+        findViewById(R.id.editText1).setEnabled(false);
+        findViewById(R.id.editText2).setEnabled(false);
+        findViewById(R.id.editText3).setEnabled(false);
+        findViewById(R.id.spinner1).setEnabled(false);
+    }
+
+    private void enableEditText() {
+        findViewById(R.id.editText1).setEnabled(true);
+        findViewById(R.id.editText2).setEnabled(true);
+        findViewById(R.id.editText3).setEnabled(true);
+        findViewById(R.id.spinner1).setEnabled(true);
     }
 
     @Override

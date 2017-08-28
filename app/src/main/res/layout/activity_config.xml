@@ -4,107 +4,67 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-    <LinearLayout
-        android:layout_width="191dp"
-        android:layout_height="36dp" />
-
-    <LinearLayout
+    <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:columnCount="2"
+        android:padding="13dp"
+        android:rowCount="4">
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
             android:text="@string/label_host"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#c2030c"
+            android:textColor="@color/accent_papercraft"
             android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editText1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="12dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
             android:ems="10"
-            android:textColor="#c2030c">
-
-        </EditText>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-
-        android:orientation="horizontal">
+            android:maxLines="1"
+            android:textColor="@color/accent_papercraft"/>
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
             android:text="@string/label_port"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#c2030c"
+            android:textColor="@color/accent_papercraft"
             android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editText2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="12dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
             android:ems="10"
             android:inputType="number"
             android:maxLength="5"
-            android:textColor="#c2030c">
-
-        </EditText>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="8dp"
-        android:orientation="horizontal">
+            android:maxLines="1"
+            android:textColor="@color/accent_papercraft" />
 
         <TextView
-
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_password"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#c2030c"
+            android:textColor="@color/accent_papercraft"
             android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editText3"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="12dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
             android:ems="10"
-            android:inputType="text"
-            android:textColor="#c2030c">
-
-        </EditText>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginLeft="8dp"
-        android:background="@android:color/transparent"
-        android:orientation="horizontal">
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:textColor="@color/accent_papercraft" />
 
         <TextView
             android:id="@+id/textView4"
@@ -113,19 +73,134 @@
             android:background="@android:color/transparent"
             android:text="@string/label_method"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#c2030c"
+            android:textColor="@color/accent_papercraft"
             android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/spinner1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="12dp"
             android:background="@android:color/transparent"
             android:entries="@array/encrypt"
             android:spinnerMode="dialog" />
+    </GridLayout>
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="40dp"-->
+    <!--android:orientation="horizontal">-->
 
-    </LinearLayout>
+    <!--<TextView-->
+    <!--android:id="@+id/textView1"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="8dp"-->
+    <!--android:text="@string/label_host"-->
+    <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+    <!--android:textColor="#c2030c"-->
+    <!--android:textStyle="bold" />-->
+
+    <!--<EditText-->
+    <!--android:id="@+id/editText1"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginLeft="12dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:ems="10"-->
+    <!--android:textColor="#c2030c">-->
+
+    <!--</EditText>-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="40dp"-->
+
+    <!--android:orientation="horizontal">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/textView2"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="8dp"-->
+    <!--android:text="@string/label_port"-->
+    <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+    <!--android:textColor="#c2030c"-->
+    <!--android:textStyle="bold" />-->
+
+    <!--<EditText-->
+    <!--android:id="@+id/editText2"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginLeft="12dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:ems="10"-->
+    <!--android:inputType="number"-->
+    <!--android:maxLength="5"-->
+    <!--android:textColor="#c2030c">-->
+
+    <!--</EditText>-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="40dp"-->
+    <!--android:layout_marginLeft="8dp"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<TextView-->
+
+    <!--android:id="@+id/textView3"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="@string/label_password"-->
+    <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+    <!--android:textColor="#c2030c"-->
+    <!--android:textStyle="bold" />-->
+
+    <!--<EditText-->
+    <!--android:id="@+id/editText3"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginLeft="12dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:ems="10"-->
+    <!--android:inputType="text"-->
+    <!--android:textColor="#c2030c">-->
+
+    <!--</EditText>-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="30dp"-->
+    <!--android:layout_marginLeft="8dp"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/textView4"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:text="@string/label_method"-->
+    <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+    <!--android:textColor="#c2030c"-->
+    <!--android:textStyle="bold" />-->
+
+    <!--<Spinner-->
+    <!--android:id="@+id/spinner1"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginLeft="12dp"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:entries="@array/encrypt"-->
+    <!--android:spinnerMode="dialog" />-->
+
+    <!--</LinearLayout>-->
 
     <LinearLayout
         android:id="@+id/AppSelectLayout"
@@ -142,7 +217,7 @@
             android:layout_height="wrap_content"
             android:text="@string/select_app"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#c2030c"
+            android:textColor="@color/accent_papercraft"
             android:textStyle="bold" />
 
         <TextView
@@ -160,10 +235,10 @@
         android:layout_height="wrap_content" />
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" />
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical" />-->
 
     <TextView
         android:id="@+id/textViewLog"
