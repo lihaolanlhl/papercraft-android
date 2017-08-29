@@ -343,6 +343,9 @@ public class ConfigActivity extends Activity implements
         findViewById(R.id.editText1).setFocusable(false);
         findViewById(R.id.editText2).setFocusable(false);
         findViewById(R.id.editText3).setFocusable(false);
+        findViewById(R.id.editText1).setFocusableInTouchMode(false);
+        findViewById(R.id.editText2).setFocusableInTouchMode(false);
+        findViewById(R.id.editText3).setFocusableInTouchMode(false);
         findViewById(R.id.spinner1).setEnabled(false);
     }
 
@@ -353,6 +356,9 @@ public class ConfigActivity extends Activity implements
         findViewById(R.id.editText1).setFocusable(true);
         findViewById(R.id.editText2).setFocusable(true);
         findViewById(R.id.editText3).setFocusable(true);
+        findViewById(R.id.editText1).setFocusableInTouchMode(true);
+        findViewById(R.id.editText2).setFocusableInTouchMode(true);
+        findViewById(R.id.editText3).setFocusableInTouchMode(true);
         findViewById(R.id.spinner1).setEnabled(true);
     }
 
