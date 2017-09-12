@@ -21,39 +21,24 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_config"/>
+    <include layout="@layout/content_config" />
 
-    <RelativeLayout
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/switchFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         app:layout_anchor="@id/main_constraint"
         app:layout_anchorGravity="bottom|right|end"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <ProgressBar
-            android:id="@+id/switchFABProgress"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerInParent="true"
-            android:visibility="invisible" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/switchFAB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:background="@color/accent_papercraft"
-            android:backgroundTint="@color/accent_papercraft"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/vpn_lock"
-            app:fabSize="normal"
-            app:rippleColor="@color/primary_papercraft" />
-
-    </RelativeLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_centerInParent="true"
+        android:background="@color/accent_papercraft"
+        android:backgroundTint="@color/accent_papercraft"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/vpn_lock"
+        app:fabSize="normal"
+        app:rippleColor="@color/primary_papercraft" />
 
 </android.support.constraint.ConstraintLayout>
