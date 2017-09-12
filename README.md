@@ -2,7 +2,7 @@
 
 Last release: Still debugging
 
-Travis CI: ![Build Status](https://img.shields.io/travis/lihaolanlhl/shadowsocks-android-java/Dev.svg?style=flat-square)
+Travis CI: [![Build Status](https://img.shields.io/travis/lihaolanlhl/shadowsocks-android-java/Dev.svg?style=flat-square)](https://travis-ci.org/lihaolanlhl/shadowsocks-android-java)
 
 ## What we have supported additionally:
 ```
