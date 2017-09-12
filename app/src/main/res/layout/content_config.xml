@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.licomm.papercraft.ui.ConfigActivity"
+    tools:showIn="@layout/activity_config">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:rowCount="5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="13dp">
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_host"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/accent_papercraft"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:maxLines="1"
+            android:textColor="@color/accent_papercraft" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_port"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/accent_papercraft"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:inputType="number"
+            android:maxLength="5"
+            android:maxLines="1"
+            android:textColor="@color/accent_papercraft" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_password"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/accent_papercraft"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:textColor="@color/accent_papercraft" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="@string/label_method"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/accent_papercraft"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:entries="@array/encrypt"
+            android:spinnerMode="dialog" />
+
+        <TextView
+            android:id="@+id/textViewAppSelectTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_app"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/accent_papercraft"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewAppSelectDetail"
+            android:ems="10"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/select_app_detail"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </GridLayout>
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/AppSelectLayout"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--android:padding="13dp"-->
+        <!--android:tag="AppSelect">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textViewAppSelectTitle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/select_app"-->
+            <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+            <!--android:textColor="@color/accent_papercraft"-->
+            <!--android:textStyle="bold" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textViewAppSelectDetail"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/select_app_detail"-->
+            <!--android:textAppearance="?android:attr/textAppearanceSmall" />-->
+
+    <!--</LinearLayout>-->
+
+    <ScrollView
+        android:id="@+id/scrollViewLog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical" />-->
+
+    <TextView
+        android:id="@+id/textViewLog"
+        android:layout_width="267dp"
+        android:layout_height="match_parent"
+        android:padding="12dp"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</android.support.constraint.ConstraintLayout>

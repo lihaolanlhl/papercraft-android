@@ -15,6 +15,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
@@ -53,6 +54,8 @@ public class ConfigActivity extends Activity implements
     private static final int START_VPN_SERVICE_REQUEST_CODE = 1985;
 
     private Switch switchProxy;
+    private FloatingActionButton switchFAB;
+    private boolean vpnStatus;
     private TextView textViewLog;
     private ScrollView scrollViewLog;
     private TextView textViewProxyApp;
@@ -77,11 +80,17 @@ public class ConfigActivity extends Activity implements
         scrollViewLog = findViewById(R.id.scrollViewLog);
         textViewLog = findViewById(R.id.textViewLog);
         //findViewById(R.id.ProxyUrlLayout).setOnClickListener(this);
-        findViewById(R.id.AppSelectLayout).setOnClickListener(this);
+        findViewById(R.id.textViewAppSelectDetail).setOnClickListener(this);
         mSpinner = findViewById(R.id.spinner1);
         mEditServer = findViewById(R.id.editText1);
         mEditPort = findViewById(R.id.editText2);
         mEditPassword = findViewById(R.id.editText3);
+        switchFAB = findViewById(R.id.switchFAB);
+        switchFAB.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+            }
+        });
         //textViewProxyUrl = findViewById(R.id.textViewProxyUrl);
         // String ProxyUrl = readProxyUrl();
         // if (TextUtils.isEmpty(ProxyUrl)) {
@@ -97,14 +106,8 @@ public class ConfigActivity extends Activity implements
         LocalVpnService.addOnStatusChangedListener(this);
 
 
-        //Pre-App Proxy
-        if (AppProxyManager.isLollipopOrAbove) {
-            new AppProxyManager(this);
-            textViewProxyApp = findViewById(R.id.textViewAppSelectDetail);
-        } else {
-            ((ViewGroup) findViewById(R.id.AppSelectLayout).getParent()).removeView(findViewById(R.id.AppSelectLayout));
-           // findViewById(R.id.textViewAppSelectLine).setVisibility(View.GONE);
-        }
+        new AppProxyManager(this);
+        textViewProxyApp = findViewById(R.id.textViewAppSelectDetail);
 
         if (LocalVpnService.IsRunning) {
             disableEditText();
@@ -185,9 +188,9 @@ public class ConfigActivity extends Activity implements
     }
     @Override
     public void onClick(View v) {
-        if (switchProxy.isChecked()) {
-            return;
-        }
+//        if (switchProxy.isChecked()) {
+//            return;
+//        }
 
         if (v.getTag().toString().equals("AppSelect")){
             System.out.println("abc");

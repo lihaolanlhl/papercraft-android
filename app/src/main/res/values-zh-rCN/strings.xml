@@ -7,7 +7,7 @@
     <string name="menu_item_exit">退出</string>
     <string name="config_url">配置地址</string>
     <string name="config_not_set_value">未设置</string>
-    <string name="select_app">选择通过隧道的软件</string>
+    <string name="select_app">选择软件：</string>
     <string name="select_app_detail">未选择</string>
     <string name="proxied_apps">通过隧道的软件</string>
     <string name="btn_ok">确定</string>
