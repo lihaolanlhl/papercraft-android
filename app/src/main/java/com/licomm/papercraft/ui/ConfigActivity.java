@@ -16,6 +16,8 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
@@ -39,10 +41,12 @@ import com.licomm.papercraft.core.ProxyConfig;
 
 import java.util.Calendar;
 
+import android.widget.Toolbar.OnMenuItemClickListener;
+
 public class ConfigActivity extends Activity implements
         View.OnClickListener,
-        OnCheckedChangeListener,
-        LocalVpnService.onStatusChangedListener {
+        LocalVpnService.onStatusChangedListener,
+        Toolbar.OnMenuItemClickListener {
 
 
     private static String GL_HISTORY_LOGS;
@@ -53,9 +57,8 @@ public class ConfigActivity extends Activity implements
 
     private static final int START_VPN_SERVICE_REQUEST_CODE = 1985;
 
-    private Switch switchProxy;
+    //    private Switch switchProxy;
     private FloatingActionButton switchFAB;
-    private boolean vpnStatus;
     private TextView textViewLog;
     private ScrollView scrollViewLog;
     private TextView textViewProxyApp;
@@ -88,9 +91,13 @@ public class ConfigActivity extends Activity implements
         switchFAB = findViewById(R.id.switchFAB);
         switchFAB.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                fabClickHandler();
             }
         });
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.main_activity_actions);
+        toolbar.setOnMenuItemClickListener(this);
         //textViewProxyUrl = findViewById(R.id.textViewProxyUrl);
         // String ProxyUrl = readProxyUrl();
         // if (TextUtils.isEmpty(ProxyUrl)) {
@@ -111,9 +118,26 @@ public class ConfigActivity extends Activity implements
 
         if (LocalVpnService.IsRunning) {
             disableEditText();
-        }
-        else {
+        } else {
             enableEditText();
+        }
+    }
+
+    private void fabClickHandler() {
+        Log.i(TAG, "fabClickHandler: FAB clicked.");
+        if (!LocalVpnService.IsRunning) {
+
+            Intent intent = LocalVpnService.prepare(this);
+            if (intent == null) {
+                startVPNService();
+            } else {
+                startActivityForResult(intent, START_VPN_SERVICE_REQUEST_CODE);
+            }
+
+        } else {
+            LocalVpnService.IsRunning = false;
+            enableEditText();
+            closeNotification();
         }
     }
 
@@ -186,46 +210,18 @@ public class ConfigActivity extends Activity implements
             return false;
         }
     }
+
     @Override
     public void onClick(View v) {
 //        if (switchProxy.isChecked()) {
 //            return;
 //        }
-
-        if (v.getTag().toString().equals("AppSelect")){
+        Log.i(TAG, "onClick: " + v.getTag().toString());
+        if (v.getTag().toString().equals("AppSelect")) {
             System.out.println("abc");
             startActivity(new Intent(this, AppManager.class));
         }
     }
-
-//    private void showProxyUrlInputDialog() {
-//        final EditText editText = new EditText(this);
-//        editText.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
-//        editText.setHint(getString(R.string.config_url_hint));
-//        editText.setText(readProxyUrl());
-//
-//        new AlertDialog.Builder(this)
-//                .setTitle(R.string.config_url)
-//                .setView(editText)
-//                .setPositiveButton(R.string.btn_ok, new OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        if (editText.getText() == null) {
-//                            return;
-//                        }
-//
-//                        String ProxyUrl = editText.getText().toString().trim();
-//                        if (isValidUrl(ProxyUrl)) {
-//                            setProxyUrl(ProxyUrl);
-//                            //textViewProxyUrl.setText(ProxyUrl);
-//                        } else {
-//                            Toast.makeText(ConfigActivity.this, R.string.err_invalid_url, Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                })
-//                .setNegativeButton(R.string.btn_cancel, null)
-//                .show();
-//    }
 
     @SuppressLint("DefaultLocale")
     @Override
@@ -249,30 +245,32 @@ public class ConfigActivity extends Activity implements
 
     @Override
     public void onStatusChanged(String status, Boolean isRunning) {
-        switchProxy.setEnabled(true);
-        switchProxy.setChecked(isRunning);
+//        switchProxy.setEnabled(true);
+//        switchProxy.setChecked(isRunning);
         onLogReceived(status);
-        Toast.makeText(this, status, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, status, Toast.LENGTH_SHORT).show();
+
+        Snackbar.make(findViewById(android.R.id.content), status, Snackbar.LENGTH_LONG).show();
     }
 
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (LocalVpnService.IsRunning != isChecked) {
-            switchProxy.setEnabled(false);
-            if (isChecked) {
-                Intent intent = LocalVpnService.prepare(this);
-                if (intent == null) {
-                    startVPNService();
-                } else {
-                    startActivityForResult(intent, START_VPN_SERVICE_REQUEST_CODE);
-                }
-            } else {
-                LocalVpnService.IsRunning = false;
-                enableEditText();
-                closeNotification();
-            }
-        }
-    }
+//    @Override
+//    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//        if (LocalVpnService.IsRunning != isChecked) {
+//            switchProxy.setEnabled(false);
+//            if (isChecked) {
+//                Intent intent = LocalVpnService.prepare(this);
+//                if (intent == null) {
+//                    startVPNService();
+//                } else {
+//                    startActivityForResult(intent, START_VPN_SERVICE_REQUEST_CODE);
+//                }
+//            } else {
+//                LocalVpnService.IsRunning = false;
+//                enableEditText();
+//                closeNotification();
+//            }
+//        }
+//    }
 
     private void startVPNService() {
         //String ProxyUrl = readProxyUrl();
@@ -282,14 +280,15 @@ public class ConfigActivity extends Activity implements
         ProxyUrl += ":" + mEditPassword.getText().toString();
         ProxyUrl += "@" + mEditServer.getText().toString() + ":" + mEditPort.getText().toString();
         if (!isValidUrl(ProxyUrl)) {
-            Toast.makeText(this, R.string.err_invalid_url, Toast.LENGTH_SHORT).show();
-            switchProxy.post(new Runnable() {
-                @Override
-                public void run() {
-                    switchProxy.setChecked(false);
-                    switchProxy.setEnabled(true);
-                }
-            });
+//            Toast.makeText(this, R.string.err_invalid_url, Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(android.R.id.content), R.string.err_invalid_url, Snackbar.LENGTH_LONG).show();
+//            switchProxy.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    switchProxy.setChecked(false);
+//                    switchProxy.setEnabled(true);
+//                }
+//            });
             return;
         }
         spf.edit().putString(SERVER_NAME, mEditServer.getText().toString()).apply();
@@ -371,8 +370,8 @@ public class ConfigActivity extends Activity implements
             if (resultCode == RESULT_OK) {
                 startVPNService();
             } else {
-                switchProxy.setChecked(false);
-                switchProxy.setEnabled(true);
+//                switchProxy.setChecked(false);
+//                switchProxy.setEnabled(true);
                 onLogReceived("canceled.");
             }
             return;
@@ -397,24 +396,71 @@ public class ConfigActivity extends Activity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_activity_actions, menu);
 
-        MenuItem menuItem = menu.findItem(R.id.menu_item_switch);
-        if (menuItem == null) {
-            return false;
-        }
+//        switchProxy = (Switch) menuItem.getActionView();
+//        if (switchProxy == null) {
+//            return false;
+//        }
+//
+//        switchProxy.setChecked(LocalVpnService.IsRunning);
+//        switchProxy.setOnCheckedChangeListener(this);
 
-        switchProxy = (Switch) menuItem.getActionView();
-        if (switchProxy == null) {
-            return false;
-        }
-
-        switchProxy.setChecked(LocalVpnService.IsRunning);
-        switchProxy.setOnCheckedChangeListener(this);
-
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_about:
+                new AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.app_name) + getVersionName())
+                        .setMessage(R.string.about_info)
+                        .setPositiveButton(R.string.btn_ok, null)
+                        .setNegativeButton(R.string.btn_more, new OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/smoochiee")));
+                            }
+                        })
+                        .show();
+
+                return true;
+            case R.id.menu_item_exit:
+                if (!LocalVpnService.IsRunning) {
+                    finish();
+                    return true;
+                }
+
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.menu_item_exit)
+                        .setMessage(R.string.exit_confirm_info)
+                        .setPositiveButton(R.string.btn_ok, new OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                LocalVpnService.IsRunning = false;
+                                LocalVpnService.Instance.disconnectVPN();
+                                stopService(new Intent(ConfigActivity.this, LocalVpnService.class));
+                                System.runFinalization();
+                                System.exit(0);
+                            }
+                        })
+                        .setNegativeButton(R.string.btn_cancel, null)
+                        .show();
+
+                return true;
+            case R.id.menu_item_toggle_global:
+                ProxyConfig.Instance.globalMode = !ProxyConfig.Instance.globalMode;
+                if (ProxyConfig.Instance.globalMode) {
+                    onLogReceived("Proxy global mode is on");
+                } else {
+                    onLogReceived("Proxy global mode is off");
+                }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_about:
                 new AlertDialog.Builder(this)

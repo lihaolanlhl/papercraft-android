@@ -7,6 +7,8 @@
     -->
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- API 14 theme customizations can go here. -->
+        <item name="colorAccent">@color/accent_papercraft</item>
+        <item name="colorPrimary">@color/accent_papercraft</item>
     </style>
 
     <style name="StyledScrollerTextAppearance" parent="@android:style/TextAppearance">
