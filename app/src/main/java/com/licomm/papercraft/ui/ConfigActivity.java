@@ -229,7 +229,7 @@ public class ConfigActivity extends Activity implements
     @Override
     public void onStatusChanged(String status, Boolean isRunning) {
         onLogReceived(status);
-        Snackbar.make(findViewById(android.R.id.content), status, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(findViewById(R.id.main_constraint), status, Snackbar.LENGTH_LONG).show();
     }
 
     private void startVPNService() {
@@ -240,7 +240,7 @@ public class ConfigActivity extends Activity implements
         ProxyUrl += ":" + mEditPassword.getText().toString();
         ProxyUrl += "@" + mEditServer.getText().toString() + ":" + mEditPort.getText().toString();
         if (!isValidUrl(ProxyUrl)) {
-            Snackbar.make(findViewById(android.R.id.content), R.string.err_invalid_url, Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(R.id.main_constraint), R.string.err_invalid_url, Snackbar.LENGTH_LONG).show();
             return;
         }
         spf.edit().putString(SERVER_NAME, mEditServer.getText().toString()).apply();
