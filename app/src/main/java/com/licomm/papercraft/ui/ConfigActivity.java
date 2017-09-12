@@ -18,20 +18,14 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.licomm.papercraft.R;
 import com.licomm.papercraft.core.AppInfo;
@@ -40,8 +34,6 @@ import com.licomm.papercraft.core.LocalVpnService;
 import com.licomm.papercraft.core.ProxyConfig;
 
 import java.util.Calendar;
-
-import android.widget.Toolbar.OnMenuItemClickListener;
 
 public class ConfigActivity extends Activity implements
         View.OnClickListener,
@@ -98,13 +90,6 @@ public class ConfigActivity extends Activity implements
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.main_activity_actions);
         toolbar.setOnMenuItemClickListener(this);
-        //textViewProxyUrl = findViewById(R.id.textViewProxyUrl);
-        // String ProxyUrl = readProxyUrl();
-        // if (TextUtils.isEmpty(ProxyUrl)) {
-        //  textViewProxyUrl.setText(R.string.config_not_set_value);
-        //} else {
-        // textViewProxyUrl.setText(ProxyUrl);
-        //   }
 
         textViewLog.setText(GL_HISTORY_LOGS);
         scrollViewLog.fullScroll(ScrollView.FOCUS_DOWN);
@@ -164,17 +149,17 @@ public class ConfigActivity extends Activity implements
         }
     }
 
-    String readProxyUrl() {
-        SharedPreferences preferences = getSharedPreferences("shadowsocksProxyUrl", MODE_PRIVATE);
-        return preferences.getString(CONFIG_URL_KEY, "");
-    }
-
-    void setProxyUrl(String ProxyUrl) {
-        SharedPreferences preferences = getSharedPreferences("shadowsocksProxyUrl", MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putString(CONFIG_URL_KEY, ProxyUrl);
-        editor.apply();
-    }
+//    String readProxyUrl() {
+//        SharedPreferences preferences = getSharedPreferences("shadowsocksProxyUrl", MODE_PRIVATE);
+//        return preferences.getString(CONFIG_URL_KEY, "");
+//    }
+//
+//    void setProxyUrl(String ProxyUrl) {
+//        SharedPreferences preferences = getSharedPreferences("shadowsocksProxyUrl", MODE_PRIVATE);
+//        Editor editor = preferences.edit();
+//        editor.putString(CONFIG_URL_KEY, ProxyUrl);
+//        editor.apply();
+//    }
 
     String getVersionName() {
         PackageManager packageManager = getPackageManager();
@@ -213,9 +198,6 @@ public class ConfigActivity extends Activity implements
 
     @Override
     public void onClick(View v) {
-//        if (switchProxy.isChecked()) {
-//            return;
-//        }
         Log.i(TAG, "onClick: " + v.getTag().toString());
         if (v.getTag().toString().equals("AppSelect")) {
             System.out.println("abc");
@@ -245,32 +227,9 @@ public class ConfigActivity extends Activity implements
 
     @Override
     public void onStatusChanged(String status, Boolean isRunning) {
-//        switchProxy.setEnabled(true);
-//        switchProxy.setChecked(isRunning);
         onLogReceived(status);
-//        Toast.makeText(this, status, Toast.LENGTH_SHORT).show();
-
         Snackbar.make(findViewById(android.R.id.content), status, Snackbar.LENGTH_LONG).show();
     }
-
-//    @Override
-//    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//        if (LocalVpnService.IsRunning != isChecked) {
-//            switchProxy.setEnabled(false);
-//            if (isChecked) {
-//                Intent intent = LocalVpnService.prepare(this);
-//                if (intent == null) {
-//                    startVPNService();
-//                } else {
-//                    startActivityForResult(intent, START_VPN_SERVICE_REQUEST_CODE);
-//                }
-//            } else {
-//                LocalVpnService.IsRunning = false;
-//                enableEditText();
-//                closeNotification();
-//            }
-//        }
-//    }
 
     private void startVPNService() {
         //String ProxyUrl = readProxyUrl();
@@ -280,15 +239,7 @@ public class ConfigActivity extends Activity implements
         ProxyUrl += ":" + mEditPassword.getText().toString();
         ProxyUrl += "@" + mEditServer.getText().toString() + ":" + mEditPort.getText().toString();
         if (!isValidUrl(ProxyUrl)) {
-//            Toast.makeText(this, R.string.err_invalid_url, Toast.LENGTH_SHORT).show();
             Snackbar.make(findViewById(android.R.id.content), R.string.err_invalid_url, Snackbar.LENGTH_LONG).show();
-//            switchProxy.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    switchProxy.setChecked(false);
-//                    switchProxy.setEnabled(true);
-//                }
-//            });
             return;
         }
         spf.edit().putString(SERVER_NAME, mEditServer.getText().toString()).apply();
@@ -370,24 +321,10 @@ public class ConfigActivity extends Activity implements
             if (resultCode == RESULT_OK) {
                 startVPNService();
             } else {
-//                switchProxy.setChecked(false);
-//                switchProxy.setEnabled(true);
                 onLogReceived("canceled.");
             }
             return;
         }
-
-//        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
-//        if (scanResult != null) {
-//            String ProxyUrl = scanResult.getContents();
-//            if (isValidUrl(ProxyUrl)) {
-//                setProxyUrl(ProxyUrl);
-//                textViewProxyUrl.setText(ProxyUrl);
-//            } else {
-//                Toast.makeText(ConfigActivity.this, R.string.err_invalid_url, Toast.LENGTH_SHORT).show();
-//            }
-//            return;
-//        }
 
         super.onActivityResult(requestCode, resultCode, intent);
     }
@@ -395,14 +332,6 @@ public class ConfigActivity extends Activity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_activity_actions, menu);
-
-//        switchProxy = (Switch) menuItem.getActionView();
-//        if (switchProxy == null) {
-//            return false;
-//        }
-//
-//        switchProxy.setChecked(LocalVpnService.IsRunning);
-//        switchProxy.setOnCheckedChangeListener(this);
 
         return super.onCreateOptionsMenu(menu);
     }
